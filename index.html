@@ -8,371 +8,275 @@
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <style>
-/* ═══════════ TOKENS ═══════════ */
 :root{
-  --bg:       #070a0f;
-  --bg1:      #0c1018;
-  --bg2:      #101520;
-  --bg3:      #151c28;
-  --bg4:      #1a2233;
-  --lime:     #c7f323;
-  --lime2:    #a8d41a;
-  --lime-bg:  rgba(199,243,35,.08);
-  --lime-bdr: rgba(199,243,35,.20);
-  --ink:      #f0f4ff;
-  --ink2:     #8892a8;
-  --ink3:     #404d63;
-  --gold:     #ffd060;
-  --silver:   #b0c0d8;
-  --bronze:   #d4924a;
-  --red:      #ff5f5f;
-  --green:    #c7f323;
-  --r:        12px;
-  --r2:       18px;
-  --bdr:      1px solid rgba(255,255,255,.06);
-
-  /* fonts */
-  --f-hero: 'Bebas Neue', sans-serif;
-  --f-ui:   'Plus Jakarta Sans', sans-serif;
-  --f-mono: 'JetBrains Mono', monospace;
+  --bg:#070a0f;--bg1:#0c1018;--bg2:#101520;--bg3:#151c28;--bg4:#1a2233;
+  --lime:#c7f323;--lime2:#a8d41a;--lime-bg:rgba(199,243,35,.08);--lime-bdr:rgba(199,243,35,.20);
+  --ink:#f0f4ff;--ink2:#8892a8;--ink3:#404d63;
+  --gold:#ffd060;--silver:#b0c0d8;--bronze:#d4924a;--red:#ff5f5f;
+  --r:12px;--r2:18px;--bdr:1px solid rgba(255,255,255,.06);
+  --f-hero:'Bebas Neue',sans-serif;--f-ui:'Plus Jakarta Sans',sans-serif;--f-mono:'JetBrains Mono',monospace;
 }
-
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
 html{scroll-behavior:smooth;}
-body{
-  background:var(--bg); color:var(--ink);
-  font-family:var(--f-ui); font-size:14px;
-  min-height:100vh; -webkit-font-smoothing:antialiased;
-  overflow-x:hidden;
-}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-ui);font-size:14px;min-height:100vh;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.35;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.15'/%3E%3C/svg%3E");background-size:180px;}
 
-/* noise grain overlay */
-body::before{
-  content:''; position:fixed; inset:0; z-index:0; pointer-events:none; opacity:.35;
-  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.15'/%3E%3C/svg%3E");
-  background-size:180px;
-}
-
-/* ═══════════ NAV ═══════════ */
-nav{
-  position:sticky; top:0; z-index:100;
-  background:rgba(7,10,15,.85); backdrop-filter:blur(16px);
-  border-bottom:var(--bdr);
-  display:flex; align-items:center; justify-content:space-between;
-  padding:0 28px; height:58px;
-}
-.nav-brand{
-  display:flex; align-items:center; gap:10px;
-  font-family:var(--f-hero); font-size:22px; letter-spacing:.06em;
-  color:var(--ink);
-}
-.nav-brand .dot{
-  width:8px; height:8px; border-radius:50%;
-  background:var(--lime); box-shadow:0 0 8px var(--lime);
-  animation:pulse 2s ease infinite;
-}
+/* NAV */
+nav{position:sticky;top:0;z-index:100;background:rgba(7,10,15,.88);backdrop-filter:blur(16px);border-bottom:var(--bdr);display:flex;align-items:center;justify-content:space-between;padding:0 28px;height:58px;}
+.nav-brand{display:flex;align-items:center;gap:10px;font-family:var(--f-hero);font-size:22px;letter-spacing:.06em;color:var(--ink);}
+.nav-brand .dot{width:8px;height:8px;border-radius:50%;background:var(--lime);box-shadow:0 0 8px var(--lime);animation:pulse 2s ease infinite;}
 @keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.5;transform:scale(.8);}}
 .nav-right{display:flex;align-items:center;gap:12px;}
-#clockEl{font-family:var(--f-mono); font-size:13px; color:var(--ink2); letter-spacing:.04em;}
-.btn-refresh{
-  background:var(--lime-bg); border:1px solid var(--lime-bdr);
-  color:var(--lime); padding:6px 14px; border-radius:8px;
-  font-family:var(--f-ui); font-size:12px; font-weight:600;
-  cursor:pointer; transition:all .2s; display:flex; align-items:center; gap:6px;
-}
-.btn-refresh:hover{background:rgba(199,243,35,.15); transform:translateY(-1px);}
-.btn-refresh:disabled{opacity:.4; cursor:not-allowed; transform:none;}
+.nav-links{display:flex;gap:4px;}
+.nav-link{background:none;border:none;color:var(--ink2);font-family:var(--f-ui);font-size:12px;font-weight:600;padding:6px 12px;border-radius:8px;cursor:pointer;transition:all .2s;letter-spacing:.02em;}
+.nav-link:hover,.nav-link.active{background:var(--lime-bg);color:var(--lime);}
+#clockEl{font-family:var(--f-mono);font-size:13px;color:var(--ink2);letter-spacing:.04em;}
+.btn-refresh{background:var(--lime-bg);border:1px solid var(--lime-bdr);color:var(--lime);padding:6px 14px;border-radius:8px;font-family:var(--f-ui);font-size:12px;font-weight:600;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:6px;}
+.btn-refresh:hover{background:rgba(199,243,35,.15);transform:translateY(-1px);}
+.btn-refresh:disabled{opacity:.4;cursor:not-allowed;transform:none;}
 .btn-refresh svg{transition:transform .4s;}
 .btn-refresh.spinning svg{animation:spin .7s linear infinite;}
 @keyframes spin{to{transform:rotate(360deg);}}
 .status-dot{width:6px;height:6px;border-radius:50%;background:var(--ink3);flex-shrink:0;}
 .status-dot.live{background:var(--lime);box-shadow:0 0 6px var(--lime);}
 
-/* ═══════════ HERO ═══════════ */
-.hero{
-  position:relative; z-index:1; overflow:hidden;
-  padding:52px 28px 44px;
-  border-bottom:var(--bdr);
-}
-.hero-glow{
-  position:absolute; top:-120px; right:-60px;
-  width:500px; height:500px; pointer-events:none;
-  background:radial-gradient(circle, rgba(199,243,35,.07) 0%, transparent 65%);
-}
-.hero-grid{
-  position:absolute; inset:0; pointer-events:none; opacity:.4;
-  background-image:
-    linear-gradient(rgba(199,243,35,.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(199,243,35,.03) 1px, transparent 1px);
-  background-size:48px 48px;
-}
+/* HERO */
+.hero{position:relative;z-index:1;overflow:hidden;padding:52px 28px 44px;border-bottom:var(--bdr);}
+.hero-glow{position:absolute;top:-120px;right:-60px;width:500px;height:500px;pointer-events:none;background:radial-gradient(circle,rgba(199,243,35,.07) 0%,transparent 65%);}
+.hero-grid{position:absolute;inset:0;pointer-events:none;opacity:.4;background-image:linear-gradient(rgba(199,243,35,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(199,243,35,.03) 1px,transparent 1px);background-size:48px 48px;}
 .hero-inner{position:relative;z-index:2;max-width:1280px;margin:0 auto;display:flex;align-items:flex-end;justify-content:space-between;gap:24px;}
-.hero-text{}
-.hero-tag{
-  display:inline-flex; align-items:center; gap:7px;
-  background:var(--lime-bg); border:1px solid var(--lime-bdr);
-  color:var(--lime); font-size:11px; font-weight:700;
-  letter-spacing:.12em; text-transform:uppercase;
-  padding:5px 12px; border-radius:6px; margin-bottom:16px;
-}
-h1{
-  font-family:var(--f-hero); font-size:76px; line-height:.88;
-  text-transform:uppercase; letter-spacing:.02em;
-  color:var(--ink);
-}
+.hero-tag{display:inline-flex;align-items:center;gap:7px;background:var(--lime-bg);border:1px solid var(--lime-bdr);color:var(--lime);font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:5px 12px;border-radius:6px;margin-bottom:16px;}
+h1{font-family:var(--f-hero);font-size:76px;line-height:.88;text-transform:uppercase;letter-spacing:.02em;color:var(--ink);}
 h1 span{color:var(--lime);}
 .hero-sub{margin-top:14px;color:var(--ink2);font-size:15px;font-weight:400;}
-.hero-stats-mini{
-  display:flex; align-items:center; gap:24px;
-  padding:20px 24px;
-  background:var(--bg2); border:var(--bdr); border-radius:var(--r2);
-  min-width:240px;
-}
+.hero-stats-mini{display:flex;align-items:center;gap:24px;padding:20px 24px;background:var(--bg2);border:var(--bdr);border-radius:var(--r2);min-width:240px;}
 .hstat{text-align:center;}
 .hstat .v{font-family:var(--f-hero);font-size:36px;color:var(--lime);letter-spacing:.02em;}
 .hstat .l{font-size:11px;color:var(--ink3);font-weight:600;text-transform:uppercase;letter-spacing:.08em;margin-top:2px;}
 .hstat-div{width:1px;height:40px;background:var(--bg4);}
 
-/* ═══════════ MAIN ═══════════ */
+/* MAIN */
 .main{position:relative;z-index:1;max-width:1280px;margin:0 auto;padding:32px 28px 64px;}
-
-/* section label */
-.slbl{
-  font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
-  color:var(--ink3);margin-bottom:16px;
-  display:flex;align-items:center;gap:10px;
-}
+.page{display:none;}.page.active{display:block;}
+.slbl{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);margin-bottom:16px;display:flex;align-items:center;gap:10px;}
 .slbl b{color:var(--lime);font-style:normal;}
 .slbl::after{content:'';flex:1;height:1px;background:rgba(255,255,255,.05);}
 
-/* ═══════════ PODIUM ═══════════ */
-.podium{
-  display:grid; grid-template-columns:1fr 1.12fr 1fr;
-  gap:14px; margin-bottom:36px; align-items:end;
-}
-.pcard{
-  background:var(--bg1); border:var(--bdr); border-radius:var(--r2);
-  padding:32px 24px 24px; text-align:center;
-  position:relative; overflow:hidden;
-  transition:transform .25s, box-shadow .25s;
-}
+/* PODIUM */
+.podium{display:grid;grid-template-columns:1fr 1.12fr 1fr;gap:14px;margin-bottom:36px;align-items:end;}
+.pcard{background:var(--bg1);border:var(--bdr);border-radius:var(--r2);padding:32px 24px 24px;text-align:center;position:relative;overflow:hidden;transition:transform .25s,box-shadow .25s;}
 .pcard:hover{transform:translateY(-4px);box-shadow:0 20px 40px rgba(0,0,0,.4);}
-
-/* P1 */
-.pcard.p1{
-  background:linear-gradient(170deg,#121508 0%,#0a0c05 100%);
-  border-color:rgba(199,243,35,.25); padding-top:40px;
-}
-.pcard.p1::before{
-  content:''; position:absolute; inset:0;
-  background:radial-gradient(ellipse at 50% -20%, rgba(199,243,35,.10) 0%, transparent 60%);
-}
-.pcard.p1::after{
-  content:''; position:absolute; top:0; left:0; right:0;
-  height:3px; background:var(--lime);
-}
-/* P2 */
+.pcard.p1{background:linear-gradient(170deg,#121508 0%,#0a0c05 100%);border-color:rgba(199,243,35,.25);padding-top:40px;}
+.pcard.p1::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% -20%,rgba(199,243,35,.10) 0%,transparent 60%);}
+.pcard.p1::after{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--lime);}
 .pcard.p2::after{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--silver);}
-/* P3 */
 .pcard.p3::after{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--bronze);}
-
 .p-medal{font-size:36px;display:block;margin-bottom:12px;filter:drop-shadow(0 2px 8px rgba(0,0,0,.4));}
-.p-pos{
-  font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;margin-bottom:14px;
-}
-.p1 .p-pos{color:var(--lime);}
-.p2 .p-pos{color:var(--silver);}
-.p3 .p-pos{color:var(--bronze);}
-
-/* ★ ปรับ font ตรงนี้ให้อ่านง่ายขึ้น ★ */
-.p-name{
-  font-family:var(--f-ui);
-  font-size:22px; font-weight:800;
-  letter-spacing:-.02em; line-height:1.1;
-  color:var(--ink); margin-bottom:4px;
-}
+.p-pos{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;margin-bottom:14px;}
+.p1 .p-pos{color:var(--lime);}.p2 .p-pos{color:var(--silver);}.p3 .p-pos{color:var(--bronze);}
+.p-name{font-family:var(--f-ui);font-size:22px;font-weight:800;letter-spacing:-.02em;line-height:1.1;color:var(--ink);margin-bottom:4px;}
 .p1 .p-name{font-size:26px;}
-.p-cont{
-  font-size:12px; color:var(--ink3);
-  font-weight:500; margin-bottom:20px;
-}
-.p-score{
-  font-family:var(--f-hero);
-  font-size:52px; line-height:1;
-  letter-spacing:.01em;
-}
-.p1 .p-score{font-size:64px;color:var(--lime);}
-.p2 .p-score{color:var(--silver);}
-.p3 .p-score{color:var(--bronze);}
-.p-score-lbl{
-  font-size:9px;letter-spacing:.16em;text-transform:uppercase;
-  color:var(--ink3); margin-bottom:20px; margin-top:2px;
-}
-.p-row{
-  display:flex;justify-content:center;gap:20px;
-  padding-top:16px;border-top:1px solid rgba(255,255,255,.06);
-}
-.pstat .v{
-  font-family:var(--f-ui); font-size:17px; font-weight:700;
-}
-.p1 .pstat .v{color:var(--lime);}
-.p2 .pstat .v{color:var(--silver);}
-.p3 .pstat .v{color:var(--bronze);}
+.p-cont{font-size:12px;color:var(--ink3);font-weight:500;margin-bottom:20px;}
+.p-score{font-family:var(--f-hero);font-size:52px;line-height:1;letter-spacing:.01em;}
+.p1 .p-score{font-size:64px;color:var(--lime);}.p2 .p-score{color:var(--silver);}.p3 .p-score{color:var(--bronze);}
+.p-score-lbl{font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink3);margin-bottom:20px;margin-top:2px;}
+.p-row{display:flex;justify-content:center;gap:20px;padding-top:16px;border-top:1px solid rgba(255,255,255,.06);}
+.pstat .v{font-family:var(--f-ui);font-size:17px;font-weight:700;}
+.p1 .pstat .v{color:var(--lime);}.p2 .pstat .v{color:var(--silver);}.p3 .pstat .v{color:var(--bronze);}
 .pstat .l{font-size:9px;color:var(--ink3);text-transform:uppercase;letter-spacing:.1em;margin-top:2px;}
 
-/* ═══════════ GRID LAYOUT ═══════════ */
+/* GRIDS */
 .grid2{display:grid;grid-template-columns:1fr 340px;gap:16px;margin-bottom:28px;}
 .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:28px;}
 
-/* ═══════════ CARD ═══════════ */
+/* CARD */
 .card{background:var(--bg1);border:var(--bdr);border-radius:var(--r2);overflow:hidden;}
-.card-hd{
-  padding:16px 20px; border-bottom:var(--bdr);
-  display:flex;justify-content:space-between;align-items:center;
-}
+.card-hd{padding:16px 20px;border-bottom:var(--bdr);display:flex;justify-content:space-between;align-items:center;}
 .card-hd h3{font-size:13px;font-weight:700;letter-spacing:.02em;color:var(--ink);}
-.chip{
-  font-size:11px;color:var(--ink3);background:var(--bg3);
-  padding:3px 9px;border-radius:20px;font-family:var(--f-mono);
-}
+.chip{font-size:11px;color:var(--ink3);background:var(--bg3);padding:3px 9px;border-radius:20px;font-family:var(--f-mono);}
 .chip.lime{color:var(--lime);background:var(--lime-bg);}
 .cp{padding:20px;}
 .cp canvas{max-height:240px;}
 
-/* ═══════════ STAT TILES ═══════════ */
-.tile{
-  background:var(--bg1);border:var(--bdr);border-radius:var(--r2);
-  padding:20px 22px; position:relative; overflow:hidden;
-  transition:transform .2s;
-}
+/* TILES */
+.tile{background:var(--bg1);border:var(--bdr);border-radius:var(--r2);padding:20px 22px;position:relative;overflow:hidden;transition:transform .2s;}
 .tile:hover{transform:translateY(-2px);}
-.tile::before{
-  content:attr(data-icon); position:absolute;
-  right:16px; top:50%; transform:translateY(-50%);
-  font-size:40px; opacity:.06; pointer-events:none;
-}
+.tile::before{content:attr(data-icon);position:absolute;right:16px;top:50%;transform:translateY(-50%);font-size:40px;opacity:.06;pointer-events:none;}
 .tile .t-lbl{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);margin-bottom:10px;}
 .tile .t-val{font-family:var(--f-hero);font-size:44px;line-height:1;color:var(--ink);}
 .tile .t-val.sm{font-size:24px;padding-top:6px;font-family:var(--f-ui);font-weight:800;}
 .tile .t-sub{font-size:12px;color:var(--ink2);margin-top:5px;}
 .tile.lime .t-val{color:var(--lime);}
-.tile .t-bar{height:3px;border-radius:2px;margin-top:14px;background:var(--bg4);}
-.tile .t-bar-fill{height:3px;border-radius:2px;background:var(--lime);}
 
-/* ═══════════ RANKINGS TABLE ═══════════ */
+/* TABLE */
 .tbl-wrap{overflow-x:auto;}
 table{width:100%;border-collapse:collapse;}
-thead th{
-  padding:10px 16px; text-align:left;
-  font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
-  color:var(--ink3); background:var(--bg2);
-  border-bottom:1px solid rgba(255,255,255,.06);
-  white-space:nowrap;
-}
+thead th{padding:10px 16px;text-align:left;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);background:var(--bg2);border-bottom:1px solid rgba(255,255,255,.06);white-space:nowrap;}
 th.r{text-align:right;}
 tbody tr{transition:background .12s;cursor:default;}
 tbody tr:hover td{background:rgba(199,243,35,.025);}
-tbody td{
-  padding:11px 16px;
-  border-bottom:1px solid rgba(255,255,255,.025);
-  font-size:13px; vertical-align:middle;
-}
+tbody td{padding:11px 16px;border-bottom:1px solid rgba(255,255,255,.025);font-size:13px;vertical-align:middle;}
 tbody tr:last-child td{border-bottom:none;}
-
-/* rank badge */
-.rk-badge{
-  width:34px;height:34px;
-  display:inline-flex;align-items:center;justify-content:center;
-  border-radius:9px; font-weight:800; font-size:14px;
-}
+.rk-badge{width:34px;height:34px;display:inline-flex;align-items:center;justify-content:center;border-radius:9px;font-weight:800;font-size:14px;}
 .rk1{background:rgba(199,243,35,.12);color:var(--lime);}
 .rk2{background:rgba(176,192,216,.10);color:var(--silver);}
 .rk3{background:rgba(212,146,74,.10);color:var(--bronze);}
 .rkn{color:var(--ink3);font-size:13px;font-weight:600;}
-
-/* change */
 .chg{font-family:var(--f-mono);font-size:11px;font-weight:600;}
-.chg.up{color:var(--lime);}
-.chg.dn{color:var(--red);}
-.chg.sm{color:var(--ink3);}
-
+.chg.up{color:var(--lime);}.chg.dn{color:var(--red);}.chg.sm{color:var(--ink3);}
 .t-name-cell{display:flex;align-items:center;gap:10px;}
-.t-flag{
-  width:28px;height:28px;border-radius:6px;
-  background:var(--bg3);display:flex;align-items:center;justify-content:center;
-  font-size:15px;flex-shrink:0;
-}
+.t-flag{width:28px;height:28px;border-radius:6px;background:var(--bg3);display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0;}
 .t-name{font-weight:700;font-size:14px;}
-.t-cont{
-  display:inline-block;font-size:10px;color:var(--ink3);background:var(--bg3);
-  padding:2px 7px;border-radius:20px;font-weight:600;
-}
-.pts-cell{
-  font-family:var(--f-mono);font-size:14px;font-weight:600;
-  color:var(--lime);text-align:right;
-}
+.t-cont{display:inline-block;font-size:10px;color:var(--ink3);background:var(--bg3);padding:2px 7px;border-radius:20px;font-weight:600;}
+.pts-cell{font-family:var(--f-mono);font-size:14px;font-weight:600;color:var(--lime);text-align:right;}
 .num{font-family:var(--f-mono);font-size:12px;color:var(--ink2);text-align:right;}
-.num.g{color:var(--lime);}
-.num.r{color:var(--red);}
-
-/* win% bar */
+.num.g{color:var(--lime);}.num.r{color:var(--red);}
 .wbar{display:flex;align-items:center;gap:8px;}
 .wbar-bg{width:56px;height:4px;border-radius:2px;background:var(--bg4);flex-shrink:0;}
 .wbar-fill{height:4px;border-radius:2px;background:linear-gradient(90deg,var(--lime2),var(--lime));}
 .wbar-pct{font-size:12px;font-family:var(--f-mono);color:var(--ink2);}
-
-/* ═══════════ MATCH LOG ═══════════ */
-.match-score{
-  font-family:var(--f-hero);font-size:20px;letter-spacing:.06em;
-  color:var(--lime);text-align:center;
-}
-.match-tourn{
-  display:inline-block;
-  font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
-  color:var(--ink3);background:var(--bg3);padding:2px 7px;border-radius:4px;
-}
+.match-score{font-family:var(--f-hero);font-size:20px;letter-spacing:.06em;color:var(--lime);text-align:center;}
+.match-tourn{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ink3);background:var(--bg3);padding:2px 7px;border-radius:4px;}
 .pts-gain{font-family:var(--f-mono);font-size:12px;color:var(--lime);text-align:right;}
 
-/* ═══════════ EMPTY / LOAD / ERR ═══════════ */
-.state-box{
+/* ══ PREDICTION PAGE ══════════════════════════════════════════ */
+.pred-layout{display:grid;grid-template-columns:380px 1fr;gap:20px;align-items:start;}
+
+/* Input panel */
+.pred-panel{background:var(--bg1);border:var(--bdr);border-radius:var(--r2);overflow:hidden;position:sticky;top:74px;}
+.pred-panel-hd{
+  padding:20px 22px 16px;
+  background:linear-gradient(135deg,rgba(199,243,35,.08),transparent);
+  border-bottom:var(--bdr);
+}
+.pred-panel-hd h2{font-family:var(--f-hero);font-size:28px;letter-spacing:.04em;color:var(--lime);line-height:1;}
+.pred-panel-hd p{font-size:12px;color:var(--ink3);margin-top:6px;}
+.pred-form{padding:20px 22px;display:flex;flex-direction:column;gap:16px;}
+
+.field{}
+.field label{display:block;font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ink3);margin-bottom:7px;}
+.field select,.field input[type="date"]{
+  width:100%;
+  background:var(--bg3);border:1px solid rgba(255,255,255,.08);
+  color:var(--ink);padding:10px 14px;border-radius:10px;
+  font-family:var(--f-ui);font-size:13px;font-weight:500;
+  appearance:none;-webkit-appearance:none;
+  transition:border-color .2s,background .2s;
+  cursor:pointer;
+}
+.field select:focus,.field input[type="date"]:focus{outline:none;border-color:var(--lime);background:rgba(199,243,35,.05);}
+.field select option{background:var(--bg2);color:var(--ink);}
+.select-wrap{position:relative;}
+.select-wrap::after{content:'▾';position:absolute;right:14px;top:50%;transform:translateY(-50%);color:var(--ink3);pointer-events:none;font-size:12px;}
+
+.vs-divider{
+  display:flex;align-items:center;gap:10px;
+  padding:4px 0;
+}
+.vs-divider::before,.vs-divider::after{content:'';flex:1;height:1px;background:var(--bg4);}
+.vs-badge{
+  font-family:var(--f-hero);font-size:16px;letter-spacing:.08em;
+  color:var(--ink3);
+}
+
+.btn-calc{
+  width:100%;
+  background:var(--lime);color:#070a0f;
+  border:none;cursor:pointer;
+  padding:13px;border-radius:10px;
+  font-family:var(--f-hero);font-size:20px;
+  letter-spacing:.06em;text-transform:uppercase;
+  transition:opacity .15s,transform .1s;
+  margin-top:4px;
+}
+.btn-calc:hover{opacity:.88;transform:translateY(-1px);}
+.btn-calc:active{transform:translateY(0);}
+.btn-calc:disabled{opacity:.35;cursor:not-allowed;transform:none;}
+
+/* pts preview */
+.pts-preview{
+  display:grid;grid-template-columns:1fr 1fr;gap:8px;
+  padding:14px;background:var(--bg2);border-radius:10px;
+}
+.pts-prev-item{text-align:center;}
+.pts-prev-item .label{font-size:10px;color:var(--ink3);font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px;}
+.pts-prev-item .value{font-family:var(--f-hero);font-size:26px;color:var(--lime);}
+.pts-prev-item .value.gray{color:var(--ink3);}
+
+/* Results area */
+.pred-results{}
+.pred-empty{
   display:flex;flex-direction:column;align-items:center;justify-content:center;
-  gap:16px; padding:80px 24px; text-align:center;
+  gap:14px;padding:60px 24px;text-align:center;
+  background:var(--bg1);border:var(--bdr);border-radius:var(--r2);
 }
-.state-box .icon{font-size:48px;opacity:.4;}
+.pred-empty .icon{font-size:48px;opacity:.25;}
+.pred-empty p{color:var(--ink3);font-size:13px;line-height:1.6;}
+
+/* scenario cards */
+.scenarios{display:flex;flex-direction:column;gap:10px;}
+.sc-card{
+  background:var(--bg1);border:var(--bdr);border-radius:14px;
+  padding:16px 20px;
+  display:grid;grid-template-columns:120px 1fr 1fr;
+  align-items:center;gap:16px;
+  transition:transform .2s,border-color .2s;
+}
+.sc-card:hover{transform:translateX(3px);}
+.sc-card.win{border-left:3px solid var(--lime);}
+.sc-card.lose{border-left:3px solid var(--red);}
+.sc-label{
+  font-family:var(--f-hero);font-size:22px;letter-spacing:.04em;
+}
+.sc-card.win .sc-label{color:var(--lime);}
+.sc-card.lose .sc-label{color:var(--red);}
+
+.sc-side{display:flex;flex-direction:column;gap:6px;}
+.sc-side-label{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);}
+.sc-side-row{display:flex;align-items:baseline;gap:8px;}
+.sc-gain{
+  font-family:var(--f-mono);font-size:15px;font-weight:600;
+}
+.win .sc-gain.my{color:var(--lime);}
+.lose .sc-gain.my{color:var(--red);}
+.sc-gain.opp{color:var(--ink2);}
+.sc-total{font-family:var(--f-hero);font-size:28px;line-height:1;}
+.win .sc-total.my{color:var(--lime);}
+.lose .sc-total.my{color:var(--ink);}
+.sc-total.opp{color:var(--ink2);font-size:22px;}
+.sc-total-lbl{font-size:10px;color:var(--ink3);text-transform:uppercase;letter-spacing:.08em;}
+
+/* result header */
+.result-header{
+  display:grid;grid-template-columns:120px 1fr 1fr;
+  gap:16px;padding:0 20px 10px;
+  font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);
+}
+
+/* ══ LOADING / ERROR ══ */
+.state-box{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;padding:80px 24px;text-align:center;}
 .state-box p{color:var(--ink2);font-size:14px;line-height:1.6;max-width:400px;}
-.spin-ring{
-  width:36px;height:36px;
-  border:3px solid rgba(199,243,35,.15);border-top-color:var(--lime);
-  border-radius:50%;animation:spin .7s linear infinite;
-}
-.err-box{
-  background:rgba(255,95,95,.06);border:1px solid rgba(255,95,95,.2);
-  border-radius:var(--r);padding:24px 28px;color:#ff8f8f;line-height:1.8;font-size:14px;
-}
+.spin-ring{width:36px;height:36px;border:3px solid rgba(199,243,35,.15);border-top-color:var(--lime);border-radius:50%;animation:spin .7s linear infinite;}
+.err-box{background:rgba(255,95,95,.06);border:1px solid rgba(255,95,95,.2);border-radius:var(--r);padding:24px 28px;color:#ff8f8f;line-height:1.8;font-size:14px;}
 .err-box strong{display:block;font-size:16px;margin-bottom:10px;color:var(--red);}
 
-/* ═══════════ FOOTER ═══════════ */
-footer{
-  position:relative;z-index:1;
-  border-top:var(--bdr);
-  padding:20px 28px;
-  display:flex;align-items:center;justify-content:space-between;
-  font-size:11px;color:var(--ink3);
-}
+/* FOOTER */
+footer{position:relative;z-index:1;border-top:var(--bdr);padding:20px 28px;display:flex;align-items:center;justify-content:space-between;font-size:11px;color:var(--ink3);}
 footer em{color:var(--lime);font-style:normal;}
 
-/* ═══════════ ANIMATIONS ═══════════ */
+/* ANIM */
 @keyframes fadeUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
 .fu{animation:fadeUp .35s ease both;}
-.d1{animation-delay:.05s;}.d2{animation-delay:.10s;}
-.d3{animation-delay:.15s;}.d4{animation-delay:.20s;}.d5{animation-delay:.25s;}
+.d1{animation-delay:.05s;}.d2{animation-delay:.10s;}.d3{animation-delay:.15s;}.d4{animation-delay:.20s;}.d5{animation-delay:.25s;}
 
-/* ═══════════ RESPONSIVE ═══════════ */
 @media(max-width:960px){
   h1{font-size:52px;}
   .hero-stats-mini{display:none;}
   .podium{grid-template-columns:1fr;}
   .grid2,.grid3{grid-template-columns:1fr;}
+  .pred-layout{grid-template-columns:1fr;}
+  .pred-panel{position:static;}
+  .nav-links{display:none;}
 }
 </style>
 </head>
@@ -380,9 +284,10 @@ footer em{color:var(--lime);font-style:normal;}
 
 <!-- NAV -->
 <nav>
-  <div class="nav-brand">
-    <div class="dot"></div>
-    VB RANKING
+  <div class="nav-brand"><div class="dot"></div>VB RANKING</div>
+  <div class="nav-links">
+    <button class="nav-link active" onclick="showPage('ranking',this)">🏅 Rankings</button>
+    <button class="nav-link" onclick="showPage('prediction',this)">🔮 Prediction</button>
   </div>
   <div class="nav-right">
     <div id="statusDot" class="status-dot"></div>
@@ -407,30 +312,109 @@ footer em{color:var(--lime);font-style:normal;}
       <p class="hero-sub" id="heroDate">—</p>
     </div>
     <div class="hero-stats-mini" id="heroMini" style="display:none">
-      <div class="hstat">
-        <div class="v" id="miniTeams">—</div>
-        <div class="l">ทีม</div>
-      </div>
+      <div class="hstat"><div class="v" id="miniTeams">—</div><div class="l">ทีม</div></div>
       <div class="hstat-div"></div>
-      <div class="hstat">
-        <div class="v" id="miniMatches">—</div>
-        <div class="l">แมตช์</div>
-      </div>
+      <div class="hstat"><div class="v" id="miniMatches">—</div><div class="l">แมตช์</div></div>
       <div class="hstat-div"></div>
-      <div class="hstat">
-        <div class="v" id="miniUpdated">—</div>
-        <div class="l">อัปเดต</div>
-      </div>
+      <div class="hstat"><div class="v" id="miniUpdated">—</div><div class="l">อัปเดต</div></div>
     </div>
   </div>
 </div>
 
 <!-- MAIN -->
-<main class="main" id="app">
-  <div class="state-box">
-    <div class="spin-ring"></div>
-    <p>กำลังโหลดข้อมูลจาก Google Sheets…</p>
+<main class="main">
+
+  <!-- PAGE: RANKINGS -->
+  <div class="page active" id="page-ranking">
+    <div id="app">
+      <div class="state-box"><div class="spin-ring"></div><p>กำลังโหลดข้อมูลจาก Google Sheets…</p></div>
+    </div>
   </div>
+
+  <!-- PAGE: PREDICTION -->
+  <div class="page" id="page-prediction">
+    <div class="slbl fu"><b>▸</b> Match Prediction Calculator</div>
+    <div class="pred-layout">
+
+      <!-- LEFT: INPUT PANEL -->
+      <div class="pred-panel">
+        <div class="pred-panel-hd">
+          <h2>🔮 PREDICTION</h2>
+          <p>คำนวณคะแนนล่วงหน้าก่อนลงสนาม</p>
+        </div>
+        <div class="pred-form">
+
+          <!-- My team -->
+          <div class="field">
+            <label>ทีมของคุณ</label>
+            <div class="select-wrap">
+              <select id="predMyTeam" onchange="updatePreview()">
+                <option value="">— เลือกทีม —</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="vs-divider"><span class="vs-badge">VS</span></div>
+
+          <!-- Opp team -->
+          <div class="field">
+            <label>ทีมคู่แข่ง</label>
+            <div class="select-wrap">
+              <select id="predOppTeam" onchange="updatePreview()">
+                <option value="">— เลือกทีม —</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Current pts preview -->
+          <div class="pts-preview" id="ptsPreview" style="display:none">
+            <div class="pts-prev-item">
+              <div class="label">คะแนนปัจจุบัน (คุณ)</div>
+              <div class="value" id="previewMyPts">—</div>
+            </div>
+            <div class="pts-prev-item">
+              <div class="label">คะแนนปัจจุบัน (คู่แข่ง)</div>
+              <div class="value gray" id="previewOppPts">—</div>
+            </div>
+          </div>
+
+          <!-- Tournament -->
+          <div class="field">
+            <label>ประเภทรายการ</label>
+            <div class="select-wrap">
+              <select id="predTournament">
+                <option value="200">Olympic Games (200)</option>
+                <option value="160">World Championship (160)</option>
+                <option value="120" selected>Nations League / VNL (120)</option>
+                <option value="100">Continental Championship (100)</option>
+                <option value="100">World Cup (100)</option>
+                <option value="60">Challenger Cup (60)</option>
+                <option value="25">Friendly Match (25)</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Date -->
+          <div class="field">
+            <label>วันที่แข่งขัน</label>
+            <input type="date" id="predDate">
+          </div>
+
+          <button class="btn-calc" id="btnCalc" onclick="calcPrediction()">CALCULATE</button>
+        </div>
+      </div>
+
+      <!-- RIGHT: RESULTS -->
+      <div class="pred-results" id="predResults">
+        <div class="pred-empty">
+          <div class="icon">🔮</div>
+          <p>เลือกทีมและรายการแข่งขัน<br>แล้วกด <strong>CALCULATE</strong> เพื่อดูผลทำนาย</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
 </main>
 
 <footer>
@@ -439,7 +423,7 @@ footer em{color:var(--lime);font-style:normal;}
 </footer>
 
 <script>
-// ══ HARDCODED URL ════════════════════════════════════
+// ══ CONFIG ══════════════════════════════════════════
 const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbwBEG6ZSnc0p1pzrHkElR7gI3-0OrhTk5xY7hUEZGA2vWJIItrLXW-j0D3X99ucjE1KUw/exec';
 // ════════════════════════════════════════════════════
 
@@ -456,85 +440,79 @@ function tick(){
 }
 setInterval(tick,1000); tick();
 
-/* ── load ── */
+/* ── page nav ── */
+function showPage(id, btn){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-link').forEach(b=>b.classList.remove('active'));
+  document.getElementById('page-'+id).classList.add('active');
+  btn.classList.add('active');
+}
+
+/* ── load data ── */
 async function loadData(){
   const btn = document.getElementById('btnRefresh');
   const dot = document.getElementById('statusDot');
-  btn.disabled = true; btn.classList.add('spinning');
-  dot.className = 'status-dot';
+  btn.disabled=true; btn.classList.add('spinning');
+  dot.className='status-dot';
 
-  document.getElementById('app').innerHTML = `
-    <div class="state-box">
-      <div class="spin-ring"></div>
-      <p>กำลังดึงข้อมูลจาก Google Sheets…</p>
-    </div>`;
+  document.getElementById('app').innerHTML=
+    '<div class="state-box"><div class="spin-ring"></div><p>กำลังดึงข้อมูลจาก Google Sheets…</p></div>';
 
-  try {
+  try{
     const data = await fetchJSONP(WEB_APP_URL);
     RK = data.rankings||[]; ML = data.matches||[];
-    if(!RK.length) throw new Error('Rankings ยังไม่มีข้อมูล');
+    if(!RK.length) throw new Error('Rankings ยังไม่มีข้อมูล — กรุณากด Recalculate Rankings ใน Google Sheets ก่อน');
 
     render();
-    dot.className = 'status-dot live';
+    populatePredDropdowns();
+    dot.className='status-dot live';
     const upd = new Date(data.updated||Date.now()).toLocaleTimeString('th-TH');
-    document.getElementById('footerUpd').textContent = 'อัปเดตล่าสุด: ' + upd;
-    document.getElementById('heroMini').style.display = 'flex';
+    document.getElementById('footerUpd').textContent='อัปเดตล่าสุด: '+upd;
+    document.getElementById('heroMini').style.display='flex';
 
-  } catch(e) {
-    dot.className = 'status-dot';
-    document.getElementById('app').innerHTML = `
-      <div class="err-box">
-        <strong>❌ โหลดข้อมูลไม่ได้</strong>
-        ${e.message}
-      </div>`;
-  } finally {
+  }catch(e){
+    dot.className='status-dot';
+    document.getElementById('app').innerHTML=
+      `<div class="err-box"><strong>❌ โหลดข้อมูลไม่ได้</strong>${e.message}</div>`;
+  }finally{
     btn.disabled=false; btn.classList.remove('spinning');
   }
 }
 
-// JSONP — ทำงานได้ทั้ง file:// และ https://
-function fetchJSONP(url) {
-  return new Promise((resolve, reject) => {
-    const cb = '__cb_' + Date.now();
-    const el = document.createElement('script');
-    let done = false;
-    const cleanup = () => { done=true; delete window[cb]; el.parentNode?.removeChild(el); };
-    window[cb] = (data) => { cleanup(); resolve(data); };
-    el.src = url + '?callback=' + cb;
-    el.onerror = () => { cleanup(); reject(new Error('โหลดไม่ได้ — ตรวจสอบ Apps Script Deploy')); };
-    setTimeout(() => { if(!done){ cleanup(); reject(new Error('Timeout')); } }, 12000);
+function fetchJSONP(url){
+  return new Promise((resolve,reject)=>{
+    const cb='__cb_'+Date.now();
+    const el=document.createElement('script');
+    let done=false;
+    const cleanup=()=>{done=true;delete window[cb];el.parentNode?.removeChild(el);};
+    window[cb]=(data)=>{cleanup();resolve(data);};
+    el.src=url+'?callback='+cb;
+    el.onerror=()=>{cleanup();reject(new Error('โหลดไม่ได้ — ตรวจสอบ Apps Script Deploy'));};
+    setTimeout(()=>{if(!done){cleanup();reject(new Error('Timeout'));}},12000);
     document.head.appendChild(el);
   });
 }
 
-/* ── render ── */
+/* ── render rankings ── */
 function render(){
-  const N = RK.length;
-  const totalM = Math.round(RK.reduce((s,t)=>s+(parseInt(t.Matches)||0),0)/2);
-  const leader = RK[0]||{};
-  const bw = [...RK].sort((a,b)=>parseFloat(b['Win%']||0)-parseFloat(a['Win%']||0))[0]||{};
+  const N=RK.length;
+  const totalM=Math.round(RK.reduce((s,t)=>s+(parseInt(t.Matches)||0),0)/2);
+  const leader=RK[0]||{};
+  const bw=[...RK].sort((a,b)=>parseFloat(b['Win%']||0)-parseFloat(a['Win%']||0))[0]||{};
 
-  document.getElementById('miniTeams').textContent   = N;
-  document.getElementById('miniMatches').textContent  = totalM;
-  document.getElementById('miniUpdated').textContent  = new Date().toLocaleTimeString('th-TH',{hour:'2-digit',minute:'2-digit'});
+  document.getElementById('miniTeams').textContent=N;
+  document.getElementById('miniMatches').textContent=totalM;
+  document.getElementById('miniUpdated').textContent=new Date().toLocaleTimeString('th-TH',{hour:'2-digit',minute:'2-digit'});
 
-  document.getElementById('app').innerHTML = `
-
-    <!-- TILES -->
+  document.getElementById('app').innerHTML=`
     <div class="slbl fu"><b>▸</b> ภาพรวม</div>
     <div class="grid3 fu d1">
-      ${tile('🏆','ผู้นำตาราง', leader.Team||'—', (leader['Total Points']||'—')+' pts', true)}
-      ${tile('📊','แมตช์ทั้งหมด', totalM, 'บันทึกแล้ว', false, true)}
-      ${tile('🔥','Win Rate สูงสุด', bw.Team||'—', bw['Win%']||'—', true)}
+      ${tile('🏆','ผู้นำตาราง',leader.Team||'—',(leader['Total Points']||'—')+' pts',true)}
+      ${tile('📊','แมตช์ทั้งหมด',totalM,'บันทึกแล้ว',false,true)}
+      ${tile('🔥','Win Rate สูงสุด',bw.Team||'—',bw['Win%']||'—',true)}
     </div>
-
-    <!-- PODIUM -->
     <div class="slbl fu d2"><b>▸</b> Top 3</div>
-    <div class="podium fu d2">
-      ${pod(RK[1],2)} ${pod(RK[0],1)} ${pod(RK[2],3)}
-    </div>
-
-    <!-- CHARTS -->
+    <div class="podium fu d2">${pod(RK[1],2)}${pod(RK[0],1)}${pod(RK[2],3)}</div>
     <div class="slbl fu d3"><b>▸</b> สถิติ</div>
     <div class="grid2 fu d3">
       <div class="card">
@@ -546,51 +524,37 @@ function render(){
         <div class="cp"><canvas id="cDough"></canvas></div>
       </div>
     </div>
-
-    <!-- FULL TABLE -->
     <div class="slbl fu d4"><b>▸</b> ตารางอันดับโลก</div>
     <div class="card fu d4" style="margin-bottom:28px">
-      <div class="card-hd">
-        <h3>🏅 World Rankings</h3>
-        <span class="chip lime">${N} ทีม</span>
-      </div>
+      <div class="card-hd"><h3>🏅 World Rankings</h3><span class="chip lime">${N} ทีม</span></div>
       <div class="tbl-wrap">
         <table>
           <thead><tr>
-            <th style="width:52px">อันดับ</th>
-            <th style="width:44px">±</th>
-            <th>ทีม</th>
-            <th>ทวีป</th>
-            <th class="r">คะแนน</th>
-            <th class="r">แมตช์</th>
-            <th class="r">ชนะ</th>
-            <th class="r">แพ้</th>
-            <th>Win%</th>
+            <th style="width:52px">อันดับ</th><th style="width:44px">±</th>
+            <th>ทีม</th><th>ทวีป</th>
+            <th class="r">คะแนน</th><th class="r">แมตช์</th>
+            <th class="r">ชนะ</th><th class="r">แพ้</th><th>Win%</th>
           </tr></thead>
           <tbody>${RK.map((t,i)=>tableRow(t,i)).join('')}</tbody>
         </table>
       </div>
     </div>
-
-    ${ML.length ? renderLog() : ''}
+    ${ML.length?renderLog():''}
   `;
-
-  setTimeout(()=>{ drawBar(); drawDough(); }, 80);
+  setTimeout(()=>{drawBar();drawDough();},80);
 }
 
 /* ── components ── */
-function tile(icon, lbl, val, sub, sm=false, lime=false){
+function tile(icon,lbl,val,sub,sm=false,lime=false){
   return `<div class="tile ${lime?'lime':''}" data-icon="${icon}">
     <div class="t-lbl">${lbl}</div>
     <div class="t-val ${sm?'sm':''}">${val}</div>
     <div class="t-sub">${sub}</div>
   </div>`;
 }
-
 function pod(t,r){
   if(!t) return `<div class="pcard p${r}" style="min-height:200px"></div>`;
-  const medals = ['','🥇','🥈','🥉'];
-  const labels = ['','CHAMPION','RUNNER-UP','3RD PLACE'];
+  const medals=['','🥇','🥈','🥉'],labels=['','CHAMPION','RUNNER-UP','3RD PLACE'];
   return `<div class="pcard p${r}">
     <span class="p-medal">${medals[r]}</span>
     <div class="p-pos">${labels[r]}</div>
@@ -605,49 +569,32 @@ function pod(t,r){
     </div>
   </div>`;
 }
-
 function tableRow(t,i){
-  const rk  = t.Rank||i+1;
-  const chg = String(t['±']||'–');
-  const rkc = rk<=3 ? `rk${rk}` : 'rkn';
-  const cc  = chg.startsWith('▲')?'up':chg.startsWith('▼')?'dn':'sm';
-  const wp  = Math.min(parseFloat(String(t['Win%']||'').replace('%',''))||0,100);
-  const flag = countryFlag(t.Team||'');
+  const rk=t.Rank||i+1,chg=String(t['±']||'–');
+  const rkc=rk<=3?`rk${rk}`:'rkn';
+  const cc=chg.startsWith('▲')?'up':chg.startsWith('▼')?'dn':'sm';
+  const wp=Math.min(parseFloat(String(t['Win%']||'').replace('%',''))||0,100);
+  const flag=countryFlag(t.Team||'');
   return `<tr>
     <td><span class="rk-badge ${rkc}">${rk}</span></td>
     <td><span class="chg ${cc}">${chg}</span></td>
-    <td>
-      <div class="t-name-cell">
-        <div class="t-flag">${flag}</div>
-        <span class="t-name">${t.Team||'—'}</span>
-      </div>
-    </td>
+    <td><div class="t-name-cell"><div class="t-flag">${flag}</div><span class="t-name">${t.Team||'—'}</span></div></td>
     <td><span class="t-cont">${t.Continent||'—'}</span></td>
     <td class="pts-cell">${t['Total Points']||0}</td>
     <td class="num">${t.Matches||0}</td>
     <td class="num g">${t.Wins||0}</td>
     <td class="num r">${t.Losses||0}</td>
-    <td>
-      <div class="wbar">
-        <div class="wbar-bg"><div class="wbar-fill" style="width:${wp}%"></div></div>
-        <span class="wbar-pct">${t['Win%']||'—'}</span>
-      </div>
-    </td>
+    <td><div class="wbar"><div class="wbar-bg"><div class="wbar-fill" style="width:${wp}%"></div></div><span class="wbar-pct">${t['Win%']||'—'}</span></div></td>
   </tr>`;
 }
-
 function renderLog(){
-  const recent = ML.slice(-25).reverse();
+  const recent=ML.slice(-25).reverse();
   return `
     <div class="slbl fu d5"><b>▸</b> ผลการแข่งขันล่าสุด</div>
     <div class="card fu d5">
       <div class="card-hd"><h3>📋 Match Log</h3><span class="chip">${ML.length} แมตช์</span></div>
       <div class="tbl-wrap"><table>
-        <thead><tr>
-          <th>วันที่</th><th>รายการ</th>
-          <th>ทีม A</th><th style="text-align:center">สกอร์</th><th>ทีม B</th>
-          <th class="r">Pts +A</th><th class="r">Pts +B</th>
-        </tr></thead>
+        <thead><tr><th>วันที่</th><th>รายการ</th><th>ทีม A</th><th style="text-align:center">สกอร์</th><th>ทีม B</th><th class="r">Pts +A</th><th class="r">Pts +B</th></tr></thead>
         <tbody>${recent.map(m=>`<tr>
           <td style="font-family:var(--f-mono);font-size:11px;color:var(--ink3)">${m.Date||'—'}</td>
           <td><span class="match-tourn">${m.Tournament||'—'}</span></td>
@@ -661,70 +608,195 @@ function renderLog(){
     </div>`;
 }
 
-/* ── flag emoji helper ── */
+/* ══ PREDICTION LOGIC ══════════════════════════════════════ */
+
+function populatePredDropdowns(){
+  const my=document.getElementById('predMyTeam');
+  const opp=document.getElementById('predOppTeam');
+  const opts=RK.map(t=>`<option value="${t.Team}">${countryFlag(t.Team)} ${t.Team} (${t['Total Points']} pts)</option>`).join('');
+  my.innerHTML='<option value="">— เลือกทีมของคุณ —</option>'+opts;
+  opp.innerHTML='<option value="">— เลือกทีมคู่แข่ง —</option>'+opts;
+  // set default date to today
+  const today=new Date().toISOString().split('T')[0];
+  document.getElementById('predDate').value=today;
+}
+
+function getTeamPts(name){
+  const t=RK.find(r=>r.Team===name);
+  return t ? parseFloat(t['Total Points'])||100 : 100;
+}
+
+function updatePreview(){
+  const my=document.getElementById('predMyTeam').value;
+  const opp=document.getElementById('predOppTeam').value;
+  const preview=document.getElementById('ptsPreview');
+  if(my && opp && my!==opp){
+    document.getElementById('previewMyPts').textContent=getTeamPts(my).toFixed(1);
+    document.getElementById('previewOppPts').textContent=getTeamPts(opp).toFixed(1);
+    preview.style.display='grid';
+  } else {
+    preview.style.display='none';
+  }
+}
+
+function getTimeDecay(dateStr){
+  const match=new Date(dateStr);
+  const today=new Date();
+  const yrs=(today-match)/(365.25*24*60*60*1000);
+  if(yrs<1) return 1.00;
+  if(yrs<2) return 0.75;
+  if(yrs<3) return 0.50;
+  return 0.25;
+}
+
+function getSetFactors(sA,sB){
+  const win=sA>sB;
+  const hi=Math.max(sA,sB),lo=Math.min(sA,sB);
+  let wf,lf;
+  if(hi===3&&lo===0){wf=1.00;lf=0.10;}
+  else if(hi===3&&lo===1){wf=0.90;lf=0.25;}
+  else{wf=0.80;lf=0.40;}
+  return win?[wf,lf]:[lf,wf];
+}
+
+function calcGain(myPts,oppPts,effWeight,factor){
+  const total=myPts+oppPts;
+  const oppFactor=total>0?(oppPts/(total/2)):1;
+  return Math.round(effWeight*factor*oppFactor*10)/10;
+}
+
+function calcPrediction(){
+  const myName=document.getElementById('predMyTeam').value;
+  const oppName=document.getElementById('predOppTeam').value;
+  const tw=parseFloat(document.getElementById('predTournament').value)||25;
+  const dateVal=document.getElementById('predDate').value;
+
+  if(!myName||!oppName){alert('กรุณาเลือกทีมทั้งสองฝั่งก่อนครับ');return;}
+  if(myName===oppName){alert('ทีมของคุณและคู่แข่งต้องเป็นคนละทีมกัน');return;}
+  if(!dateVal){alert('กรุณาเลือกวันที่แข่งขันด้วยครับ');return;}
+
+  const myPts=getTeamPts(myName);
+  const oppPts=getTeamPts(oppName);
+  const td=getTimeDecay(dateVal);
+  const ew=tw*td;
+
+  const scenarios=[
+    {label:'WIN 3-0',sA:3,sB:0},
+    {label:'WIN 3-1',sA:3,sB:1},
+    {label:'WIN 3-2',sA:3,sB:2},
+    {label:'LOSE 2-3',sA:2,sB:3},
+    {label:'LOSE 1-3',sA:1,sB:3},
+    {label:'LOSE 0-3',sA:0,sB:3},
+  ];
+
+  const results=scenarios.map(({label,sA,sB})=>{
+    const [fA,fB]=getSetFactors(sA,sB);
+    const gainA=calcGain(myPts,oppPts,ew,fA);
+    const gainB=calcGain(oppPts,myPts,ew,fB);
+    const newMy=Math.round((myPts+gainA)*10)/10;
+    const newOpp=Math.round((oppPts+gainB)*10)/10;
+    const isWin=sA>sB;
+    return {label,gainA,gainB,newMy,newOpp,isWin};
+  });
+
+  const myRank=RK.findIndex(r=>r.Team===myName)+1;
+  const oppRank=RK.findIndex(r=>r.Team===oppName)+1;
+  const tournLabel=document.getElementById('predTournament').selectedOptions[0].text;
+
+  document.getElementById('predResults').innerHTML=`
+    <!-- Match info bar -->
+    <div class="card" style="margin-bottom:16px">
+      <div style="padding:16px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;">
+        <div style="display:flex;align-items:center;gap:16px;">
+          <div style="text-align:center">
+            <div style="font-family:var(--f-ui);font-size:16px;font-weight:800;color:var(--lime)">${countryFlag(myName)} ${myName}</div>
+            <div style="font-family:var(--f-hero);font-size:28px;color:var(--lime);line-height:1">${myPts}</div>
+            <div style="font-size:10px;color:var(--ink3);text-transform:uppercase;letter-spacing:.08em">อันดับ ${myRank}</div>
+          </div>
+          <div style="font-family:var(--f-hero);font-size:32px;color:var(--ink3);letter-spacing:.06em">VS</div>
+          <div style="text-align:center">
+            <div style="font-family:var(--f-ui);font-size:16px;font-weight:800;color:var(--silver)">${countryFlag(oppName)} ${oppName}</div>
+            <div style="font-family:var(--f-hero);font-size:28px;color:var(--silver);line-height:1">${oppPts}</div>
+            <div style="font-size:10px;color:var(--ink3);text-transform:uppercase;letter-spacing:.08em">อันดับ ${oppRank}</div>
+          </div>
+        </div>
+        <div style="text-align:right">
+          <div style="font-size:11px;color:var(--ink3);margin-bottom:4px">${tournLabel}</div>
+          <div style="font-family:var(--f-mono);font-size:11px;color:var(--ink3)">Weight: ${tw} × Decay: ${td} = <span style="color:var(--lime)">${Math.round(ew*10)/10}</span></div>
+          <div style="font-size:11px;color:var(--ink3);margin-top:4px">${new Date(dateVal+'T00:00:00').toLocaleDateString('th-TH',{year:'numeric',month:'long',day:'numeric'})}</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Column headers -->
+    <div class="result-header">
+      <div>ผลการแข่งขัน</div>
+      <div>${countryFlag(myName)} ${myName}</div>
+      <div>${countryFlag(oppName)} ${oppName}</div>
+    </div>
+
+    <!-- Scenario cards -->
+    <div class="scenarios">
+      ${results.map(r=>`
+        <div class="sc-card ${r.isWin?'win':'lose'}">
+          <div class="sc-label">${r.label}</div>
+
+          <div class="sc-side">
+            <div class="sc-side-label">คะแนนที่ได้</div>
+            <div class="sc-side-row">
+              <span class="sc-gain my">+${r.gainA}</span>
+              <span style="font-size:10px;color:var(--ink3)">pts</span>
+            </div>
+            <div class="sc-total my">${r.newMy}</div>
+            <div class="sc-total-lbl">คะแนนรวมใหม่</div>
+          </div>
+
+          <div class="sc-side">
+            <div class="sc-side-label">คะแนนที่ได้</div>
+            <div class="sc-side-row">
+              <span class="sc-gain opp">+${r.gainB}</span>
+              <span style="font-size:10px;color:var(--ink3)">pts</span>
+            </div>
+            <div class="sc-total opp">${r.newOpp}</div>
+            <div class="sc-total-lbl">คะแนนรวมใหม่</div>
+          </div>
+        </div>
+      `).join('')}
+    </div>
+  `;
+}
+
+/* ── helpers ── */
 function countryFlag(name){
-  const map = {
-    'Brazil':'🇧🇷','USA':'🇺🇸','Poland':'🇵🇱','France':'🇫🇷','Italy':'🇮🇹',
-    'Japan':'🇯🇵','Iran':'🇮🇷','Serbia':'🇷🇸','Argentina':'🇦🇷','Slovenia':'🇸🇮',
-    'Netherlands':'🇳🇱','Germany':'🇩🇪','China':'🇨🇳','Turkey':'🇹🇷','Cuba':'🇨🇺',
-    'South Korea':'🇰🇷','Canada':'🇨🇦','Australia':'🇦🇺','Egypt':'🇪🇬','Thailand':'🇹🇭',
-    'Russia':'🇷🇺','Bulgaria':'🇧🇬','Ukraine':'🇺🇦','Belgium':'🇧🇪','Czech Republic':'🇨🇿',
-    'Dominican Republic':'🇩🇴','Kenya':'🇰🇪','Cameroon':'🇨🇲','Tunisia':'🇹🇳',
-    'Mexico':'🇲🇽','Puerto Rico':'🇵🇷',
-  };
-  return map[name] || '🏐';
+  const map={'Brazil':'🇧🇷','USA':'🇺🇸','Poland':'🇵🇱','France':'🇫🇷','Italy':'🇮🇹','Japan':'🇯🇵','Iran':'🇮🇷','Serbia':'🇷🇸','Argentina':'🇦🇷','Slovenia':'🇸🇮','Netherlands':'🇳🇱','Germany':'🇩🇪','China':'🇨🇳','Turkey':'🇹🇷','Cuba':'🇨🇺','South Korea':'🇰🇷','Canada':'🇨🇦','Australia':'🇦🇺','Egypt':'🇪🇬','Thailand':'🇹🇭','Russia':'🇷🇺','Bulgaria':'🇧🇬','Ukraine':'🇺🇦','Belgium':'🇧🇪','Czech Republic':'🇨🇿','Dominican Republic':'🇩🇴','Kenya':'🇰🇪','Cameroon':'🇨🇲','Tunisia':'🇹🇳','Mexico':'🇲🇽','Puerto Rico':'🇵🇷'};
+  return map[name]||'🏐';
 }
 
 /* ── charts ── */
-Chart.defaults.color = '#8892a8';
-Chart.defaults.borderColor = 'rgba(255,255,255,0.04)';
-Chart.defaults.font.family = "'Plus Jakarta Sans', sans-serif";
+Chart.defaults.color='#8892a8';
+Chart.defaults.borderColor='rgba(255,255,255,0.04)';
+Chart.defaults.font.family="'Plus Jakarta Sans', sans-serif";
 
 function drawBar(){
-  const el = document.getElementById('cBar'); if(!el) return;
-  if(cBar) cBar.destroy();
-  const top = RK.slice(0,10);
-  cBar = new Chart(el,{
+  const el=document.getElementById('cBar');if(!el)return;
+  if(cBar)cBar.destroy();
+  const top=RK.slice(0,10);
+  cBar=new Chart(el,{
     type:'bar',
-    data:{
-      labels: top.map(t=>t.Team),
-      datasets:[{
-        data: top.map(t=>parseFloat(t['Total Points'])||0),
-        backgroundColor: top.map((_,i)=>
-          i===0?'rgba(199,243,35,.9)':
-          i===1?'rgba(176,192,216,.6)':
-          i===2?'rgba(212,146,74,.7)':
-          'rgba(199,243,35,.22)'),
-        borderColor:'transparent',
-        borderRadius:6, borderSkipped:false,
-      }]
-    },
-    options:{
-      responsive:true,
-      plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>` ${c.parsed.y} pts`}}},
-      scales:{
-        x:{grid:{display:false},ticks:{font:{size:11},maxRotation:40}},
-        y:{grid:{color:'rgba(255,255,255,.03)'},ticks:{font:{size:11}}}
-      }
-    }
+    data:{labels:top.map(t=>t.Team),datasets:[{data:top.map(t=>parseFloat(t['Total Points'])||0),backgroundColor:top.map((_,i)=>i===0?'rgba(199,243,35,.9)':i===1?'rgba(176,192,216,.6)':i===2?'rgba(212,146,74,.7)':'rgba(199,243,35,.22)'),borderColor:'transparent',borderRadius:6,borderSkipped:false}]},
+    options:{responsive:true,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>` ${c.parsed.y} pts`}}},scales:{x:{grid:{display:false},ticks:{font:{size:11},maxRotation:40}},y:{grid:{color:'rgba(255,255,255,.03)'},ticks:{font:{size:11}}}}}
   });
 }
-
 function drawDough(){
-  const el = document.getElementById('cDough'); if(!el) return;
-  if(cDough) cDough.destroy();
-  const map = {};
-  RK.forEach(t=>{ const c=t.Continent||'Other'; map[c]=(map[c]||0)+(parseFloat(t['Total Points'])||0); });
-  const pal = ['#c7f323','#3d8ef8','#ffd060','#9b7dff','#ff5f5f','#22d4e8','#ff9f44','#2ed8a0'];
-  cDough = new Chart(el,{
-    type:'doughnut',
-    data:{labels:Object.keys(map),datasets:[{data:Object.values(map),backgroundColor:pal,borderWidth:0,hoverOffset:6}]},
-    options:{responsive:true,cutout:'64%',plugins:{legend:{position:'bottom',labels:{boxWidth:10,padding:14,font:{size:11}}}}}
-  });
+  const el=document.getElementById('cDough');if(!el)return;
+  if(cDough)cDough.destroy();
+  const map={};
+  RK.forEach(t=>{const c=t.Continent||'Other';map[c]=(map[c]||0)+(parseFloat(t['Total Points'])||0);});
+  const pal=['#c7f323','#3d8ef8','#ffd060','#9b7dff','#ff5f5f','#22d4e8','#ff9f44','#2ed8a0'];
+  cDough=new Chart(el,{type:'doughnut',data:{labels:Object.keys(map),datasets:[{data:Object.values(map),backgroundColor:pal,borderWidth:0,hoverOffset:6}]},options:{responsive:true,cutout:'64%',plugins:{legend:{position:'bottom',labels:{boxWidth:10,padding:14,font:{size:11}}}}}});
 }
 
-/* ── init ── */
-window.onload = loadData;
+window.onload=loadData;
 </script>
 </body>
 </html>
