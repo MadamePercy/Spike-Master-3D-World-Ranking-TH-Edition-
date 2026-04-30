@@ -639,8 +639,8 @@ function renderLog(){
           <td style="font-weight:700">${m['Team A']||'—'}</td>
           <td><div class="match-score">${m.Score||'—'}</div></td>
           <td style="font-weight:700">${m['Team B']||'—'}</td>
-          <td class="pts-gain">${m['Pts A']||'—'}</td>
-          <td class="pts-gain">${m['Pts B']||'—'}</td>
+          <td style="font-family:var(--f-mono);font-size:12px;text-align:right;color:${String(m['Pts A']).startsWith('-')?'var(--red)':'var(--lime)'}">${m['Pts A']||'—'}</td>
+<td style="font-family:var(--f-mono);font-size:12px;text-align:right;color:${String(m['Pts B']).startsWith('-')?'var(--red)':'var(--lime)'}">${m['Pts B']||'—'}</td>
         </tr>`).join('')}</tbody>
       </table></div>
     </div>`;
