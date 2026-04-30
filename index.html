@@ -469,12 +469,10 @@ async function loadData(){
       <p>กำลังดึงข้อมูลจาก Google Sheets…</p>
     </div>`;
 
-  try{
-    const res = await fetch(WEB_APP_URL);
-    if(!res.ok) throw new Error(`HTTP ${res.status}`);
-    const data = await res.json();
+  try {
+    const data = await fetchJSONP(WEB_APP_URL);
     RK = data.rankings||[]; ML = data.matches||[];
-    if(!RK.length) throw new Error('Rankings ยังไม่มีข้อมูล — กรุณากด Recalculate Rankings ใน Google Sheets ก่อน');
+    if(!RK.length) throw new Error('Rankings ยังไม่มีข้อมูล');
 
     render();
     dot.className = 'status-dot live';
@@ -482,20 +480,31 @@ async function loadData(){
     document.getElementById('footerUpd').textContent = 'อัปเดตล่าสุด: ' + upd;
     document.getElementById('heroMini').style.display = 'flex';
 
-  }catch(e){
+  } catch(e) {
     dot.className = 'status-dot';
     document.getElementById('app').innerHTML = `
       <div class="err-box">
         <strong>❌ โหลดข้อมูลไม่ได้</strong>
-        ${e.message}<br><br>
-        <strong>Checklist:</strong><br>
-        • ตรวจสอบว่า Apps Script Deploy ยังใช้งานได้อยู่<br>
-        • Who has access ต้องเป็น <strong>Anyone</strong><br>
-        • Rankings sheet มีข้อมูลแล้วหรือยัง?
+        ${e.message}
       </div>`;
-  }finally{
+  } finally {
     btn.disabled=false; btn.classList.remove('spinning');
   }
+}
+
+// JSONP — ทำงานได้ทั้ง file:// และ https://
+function fetchJSONP(url) {
+  return new Promise((resolve, reject) => {
+    const cb = '__cb_' + Date.now();
+    const el = document.createElement('script');
+    let done = false;
+    const cleanup = () => { done=true; delete window[cb]; el.parentNode?.removeChild(el); };
+    window[cb] = (data) => { cleanup(); resolve(data); };
+    el.src = url + '?callback=' + cb;
+    el.onerror = () => { cleanup(); reject(new Error('โหลดไม่ได้ — ตรวจสอบ Apps Script Deploy')); };
+    setTimeout(() => { if(!done){ cleanup(); reject(new Error('Timeout')); } }, 12000);
+    document.head.appendChild(el);
+  });
 }
 
 /* ── render ── */
