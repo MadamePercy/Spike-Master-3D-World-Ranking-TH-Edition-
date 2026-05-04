@@ -173,118 +173,100 @@ tbody tr:last-child td{border-bottom:none;}
 .pts-gain{font-family:var(--f-mono);font-size:12px;color:var(--lime);text-align:right;}
 
 /* ══ PREDICTION PAGE ══════════════════════════════════════════ */
-.pred-layout{display:grid;grid-template-columns:380px 1fr;gap:20px;align-items:start;}
+.pred-layout{display:grid;grid-template-columns:360px 1fr;gap:20px;align-items:start;}
 
 /* Input panel */
 .pred-panel{background:var(--bg1);border:var(--bdr);border-radius:var(--r2);overflow:hidden;position:sticky;top:74px;}
-.pred-panel-hd{
-  padding:20px 22px 16px;
-  background:linear-gradient(135deg,rgba(199,243,35,.08),transparent);
-  border-bottom:var(--bdr);
-}
+.pred-panel-hd{padding:20px 22px 16px;background:linear-gradient(135deg,rgba(199,243,35,.08),transparent);border-bottom:var(--bdr);}
 .pred-panel-hd h2{font-family:var(--f-hero);font-size:28px;letter-spacing:.04em;color:var(--lime);line-height:1;}
 .pred-panel-hd p{font-size:12px;color:var(--ink3);margin-top:6px;}
 .pred-form{padding:20px 22px;display:flex;flex-direction:column;gap:16px;}
-
-.field{}
 .field label{display:block;font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ink3);margin-bottom:7px;}
 .field select,.field input[type="date"]{
-  width:100%;
-  background:var(--bg3);border:1px solid rgba(255,255,255,.08);
+  width:100%;background:var(--bg3);border:1px solid rgba(255,255,255,.08);
   color:var(--ink);padding:10px 14px;border-radius:10px;
   font-family:var(--f-ui);font-size:13px;font-weight:500;
-  appearance:none;-webkit-appearance:none;
-  transition:border-color .2s,background .2s;
-  cursor:pointer;
+  appearance:none;-webkit-appearance:none;transition:border-color .2s;cursor:pointer;
 }
 .field select:focus,.field input[type="date"]:focus{outline:none;border-color:var(--lime);background:rgba(199,243,35,.05);}
 .field select option{background:var(--bg2);color:var(--ink);}
 .select-wrap{position:relative;}
 .select-wrap::after{content:'▾';position:absolute;right:14px;top:50%;transform:translateY(-50%);color:var(--ink3);pointer-events:none;font-size:12px;}
-
-.vs-divider{
-  display:flex;align-items:center;gap:10px;
-  padding:4px 0;
-}
+.vs-divider{display:flex;align-items:center;gap:10px;padding:4px 0;}
 .vs-divider::before,.vs-divider::after{content:'';flex:1;height:1px;background:var(--bg4);}
-.vs-badge{
-  font-family:var(--f-hero);font-size:16px;letter-spacing:.08em;
-  color:var(--ink3);
-}
-
+.vs-badge{font-family:var(--f-hero);font-size:16px;letter-spacing:.08em;color:var(--ink3);}
 .btn-calc{
-  width:100%;
-  background:var(--lime);color:#070a0f;
-  border:none;cursor:pointer;
-  padding:13px;border-radius:10px;
-  font-family:var(--f-hero);font-size:20px;
-  letter-spacing:.06em;text-transform:uppercase;
-  transition:opacity .15s,transform .1s;
-  margin-top:4px;
+  width:100%;background:var(--lime);color:#070a0f;border:none;cursor:pointer;
+  padding:13px;border-radius:10px;font-family:var(--f-hero);font-size:20px;
+  letter-spacing:.06em;text-transform:uppercase;transition:opacity .15s,transform .1s;margin-top:4px;
 }
 .btn-calc:hover{opacity:.88;transform:translateY(-1px);}
 .btn-calc:active{transform:translateY(0);}
 .btn-calc:disabled{opacity:.35;cursor:not-allowed;transform:none;}
-
-/* pts preview */
-.pts-preview{
-  display:grid;grid-template-columns:1fr 1fr;gap:8px;
-  padding:14px;background:var(--bg2);border-radius:10px;
-}
+.pts-preview{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:14px;background:var(--bg2);border-radius:10px;}
 .pts-prev-item{text-align:center;}
 .pts-prev-item .label{font-size:10px;color:var(--ink3);font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px;}
 .pts-prev-item .value{font-family:var(--f-hero);font-size:26px;color:var(--lime);}
 .pts-prev-item .value.gray{color:var(--ink3);}
 
-/* Results area */
+/* FIVB-style results */
 .pred-results{}
-.pred-empty{
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
-  gap:14px;padding:60px 24px;text-align:center;
-  background:var(--bg1);border:var(--bdr);border-radius:var(--r2);
-}
+.pred-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:60px 24px;text-align:center;background:var(--bg1);border:var(--bdr);border-radius:var(--r2);}
 .pred-empty .icon{font-size:48px;opacity:.25;}
 .pred-empty p{color:var(--ink3);font-size:13px;line-height:1.6;}
 
-/* scenario cards */
-.scenarios{display:flex;flex-direction:column;gap:10px;}
-.sc-card{
-  background:var(--bg1);border:var(--bdr);border-radius:14px;
-  padding:16px 20px;
-  display:grid;grid-template-columns:120px 1fr 1fr;
-  align-items:center;gap:16px;
-  transition:transform .2s,border-color .2s;
-}
-.sc-card:hover{transform:translateX(3px);}
-.sc-card.win{border-left:3px solid var(--lime);}
-.sc-card.lose{border-left:3px solid var(--red);}
-.sc-label{
-  font-family:var(--f-hero);font-size:22px;letter-spacing:.04em;
-}
-.sc-card.win .sc-label{color:var(--lime);}
-.sc-card.lose .sc-label{color:var(--red);}
+/* PROBABILITIES TABLE */
+.prob-block{background:var(--bg1);border:var(--bdr);border-radius:var(--r2);overflow:hidden;margin-bottom:14px;}
+.prob-title{background:var(--bg2);padding:12px 20px;font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--ink);text-align:center;border-bottom:var(--bdr);}
+.prob-vs-row{display:grid;grid-template-columns:1fr auto 1fr;padding:12px 20px;border-bottom:var(--bdr);align-items:center;}
+.prob-vs-team{font-weight:700;font-size:13px;}
+.prob-vs-team.left{color:var(--lime);}
+.prob-vs-team.right{color:var(--silver);text-align:right;}
+.prob-vs-badge{font-family:var(--f-hero);font-size:14px;color:var(--ink3);padding:0 14px;letter-spacing:.06em;}
+.prob-scores-row{display:grid;grid-template-columns:repeat(6,1fr);border-bottom:1px solid rgba(255,255,255,.04);}
+.prob-score-cell{text-align:center;padding:10px 6px;font-family:var(--f-hero);font-size:16px;letter-spacing:.04em;border-right:1px solid rgba(255,255,255,.04);}
+.prob-score-cell:last-child{border-right:none;}
+.prob-score-cell.win{color:var(--lime);}
+.prob-score-cell.lose{color:var(--red);}
+.prob-pct-row{display:grid;grid-template-columns:repeat(6,1fr);}
+.prob-pct-cell{text-align:center;padding:10px 4px;font-family:var(--f-mono);font-size:13px;font-weight:600;border-right:1px solid rgba(255,255,255,.04);position:relative;overflow:hidden;}
+.prob-pct-cell:last-child{border-right:none;}
+.prob-pct-cell .bar{position:absolute;bottom:0;left:0;right:0;background:rgba(199,243,35,.12);transition:height .5s ease;}
+.prob-pct-cell.win{color:var(--lime);}
+.prob-pct-cell.lose{color:var(--red);}
+.prob-pct-cell span{position:relative;z-index:1;}
 
-.sc-side{display:flex;flex-direction:column;gap:6px;}
-.sc-side-label{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);}
-.sc-side-row{display:flex;align-items:baseline;gap:8px;}
-.sc-gain{
-  font-family:var(--f-mono);font-size:15px;font-weight:600;
+/* MATCH WEIGHT BADGE */
+.match-weight-block{margin-bottom:14px;}
+.mw-badge{
+  background:var(--lime);color:#070a0f;
+  padding:10px 20px;text-align:center;
+  font-family:var(--f-hero);font-size:18px;letter-spacing:.08em;
+  border-radius:var(--r) var(--r) 0 0;
 }
-.win .sc-gain.my{color:var(--lime);}
-.lose .sc-gain.my{color:var(--red);}
-.sc-gain.opp{color:var(--ink2);}
-.sc-total{font-family:var(--f-hero);font-size:28px;line-height:1;}
-.win .sc-total.my{color:var(--lime);}
-.lose .sc-total.my{color:var(--ink);}
-.sc-total.opp{color:var(--ink2);font-size:22px;}
-.sc-total-lbl{font-size:10px;color:var(--ink3);text-transform:uppercase;letter-spacing:.08em;}
+.mw-tourn{
+  background:var(--bg1);border:1px solid var(--lime-bdr);border-top:none;
+  padding:9px 20px;text-align:center;
+  font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--lime);border-radius:0 0 var(--r) var(--r);
+}
 
-/* result header */
-.result-header{
-  display:grid;grid-template-columns:120px 1fr 1fr;
-  gap:16px;padding:0 20px 10px;
-  font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);
-}
+/* WORLD RANKING POINTS */
+.wrp-block{background:var(--bg1);border:var(--bdr);border-radius:var(--r2);overflow:hidden;margin-bottom:14px;}
+.wrp-title{background:var(--bg2);padding:11px 20px;font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--ink);text-align:center;border-bottom:var(--bdr);}
+.wrp-team-row{display:grid;grid-template-columns:100px 1fr 140px;align-items:center;padding:14px 20px;border-bottom:1px solid rgba(255,255,255,.04);}
+.wrp-rank{font-family:var(--f-hero);font-size:38px;line-height:1;color:var(--ink);text-align:center;}
+.wrp-team-name{font-size:16px;font-weight:800;color:var(--lime);padding:0 12px;}
+.wrp-team-name.opp{color:var(--silver);}
+.wrp-score{font-family:var(--f-hero);font-size:32px;color:var(--ink);text-align:right;letter-spacing:-.01em;}
+.wrp-player{padding:6px 20px 0;font-size:11px;color:var(--ink3);font-weight:600;}
+.wrp-delta-hdr{display:grid;grid-template-columns:repeat(6,1fr);padding:6px 20px 0;}
+.wrp-delta-hdr-cell{text-align:center;font-size:10px;color:var(--ink3);font-family:var(--f-mono);}
+.wrp-delta-row{display:grid;grid-template-columns:repeat(6,1fr);padding:6px 20px 16px;}
+.wrp-delta-cell{text-align:center;font-family:var(--f-mono);font-size:14px;font-weight:600;}
+.wrp-delta-cell.pos{color:var(--lime);}
+.wrp-delta-cell.neg{color:var(--red);}
+.wrp-delta-cell.zero{color:var(--ink3);}
 
 /* ══ LOADING / ERROR ══ */
 .state-box{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;padding:80px 24px;text-align:center;}
@@ -462,7 +444,7 @@ footer em{color:var(--lime);font-style:normal;}
 
 <script>
 // ══ CONFIG ══════════════════════════════════════════
-const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycby4-YyVig1F2uisuPTQWHaArcC1y7o1q2rJfyjRxnwSbdnXrTvv84VbmkX-1CXA3olGGQ/exec';
+const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbwBEG6ZSnc0p1pzrHkElR7gI3-0OrhTk5xY7hUEZGA2vWJIItrLXW-j0D3X99ucjE1KUw/exec';
 // ════════════════════════════════════════════════════
 
 let RK = [], ML = [];
@@ -639,8 +621,8 @@ function renderLog(){
           <td style="font-weight:700">${m['Team A']||'—'}</td>
           <td><div class="match-score">${m.Score||'—'}</div></td>
           <td style="font-weight:700">${m['Team B']||'—'}</td>
-          <td style="font-family:var(--f-mono);font-size:12px;text-align:right;color:${String(m['Pts A']).startsWith('-')?'var(--red)':'var(--lime)'}">${m['Pts A']||'—'}</td>
-<td style="font-family:var(--f-mono);font-size:12px;text-align:right;color:${String(m['Pts B']).startsWith('-')?'var(--red)':'var(--lime)'}">${m['Pts B']||'—'}</td>
+          <td class="pts-gain">${m['Pts A']||'—'}</td>
+          <td class="pts-gain">${m['Pts B']||'—'}</td>
         </tr>`).join('')}</tbody>
       </table></div>
     </div>`;
@@ -711,6 +693,30 @@ function calcDelta(myPts,oppPts,effWeight,factor,isWinner){
   return Math.round(delta*10)/10;
 }
 
+// ── Win Probability (Elo-style) ─────────────────────────────
+function calcWinProb(myPts, oppPts) {
+  // Expected win probability based on point ratio
+  const ratio = myPts / (myPts + oppPts);
+  // Sigmoid with steepness — สูงกว่า = gap ชัดขึ้น
+  const logit = (ratio - 0.5) * 6;
+  return 1 / (1 + Math.exp(-logit));
+}
+
+// แจก probability ไปยัง 6 scenario ตาม win chance
+// สัดส่วน set score: ชนะมีโอกาส 3-0 > 3-1 > 3-2, แพ้ 0-3 > 1-3 > 2-3
+function calcScenarioProbs(myPts, oppPts) {
+  const w = calcWinProb(myPts, oppPts); // prob ที่ฉันชนะ
+  const l = 1 - w;
+  // น้ำหนัก set score ตามความสามารถ
+  const wRaw = [0.40, 0.35, 0.25]; // 3-0, 3-1, 3-2
+  const lRaw = [0.25, 0.35, 0.40]; // 2-3, 1-3, 0-3
+  const probs = [
+    w * wRaw[0], w * wRaw[1], w * wRaw[2],
+    l * lRaw[0], l * lRaw[1], l * lRaw[2]
+  ];
+  return probs;
+}
+
 function calcPrediction(){
   const myName=document.getElementById('predMyTeam').value;
   const oppName=document.getElementById('predOppTeam').value;
@@ -721,95 +727,106 @@ function calcPrediction(){
   if(myName===oppName){alert('ทีมของคุณและคู่แข่งต้องเป็นคนละทีมกัน');return;}
   if(!dateVal){alert('กรุณาเลือกวันที่แข่งขันด้วยครับ');return;}
 
-  const myPts=getTeamPts(myName);
-  const oppPts=getTeamPts(oppName);
-  const td=getTimeDecay(dateVal);
-  const ew=tw*td;
+  const myPts  = getTeamPts(myName);
+  const oppPts = getTeamPts(oppName);
+  const td     = getTimeDecay(dateVal);
+  const ew     = tw * td;
 
-  const scenarios=[
-    {label:'WIN 3-0',sA:3,sB:0},
-    {label:'WIN 3-1',sA:3,sB:1},
-    {label:'WIN 3-2',sA:3,sB:2},
-    {label:'LOSE 2-3',sA:2,sB:3},
-    {label:'LOSE 1-3',sA:1,sB:3},
-    {label:'LOSE 0-3',sA:0,sB:3},
+  const scenarios = [
+    {label:'3–0',sA:3,sB:0,win:true},
+    {label:'3–1',sA:3,sB:1,win:true},
+    {label:'3–2',sA:3,sB:2,win:true},
+    {label:'2–3',sA:2,sB:3,win:false},
+    {label:'1–3',sA:1,sB:3,win:false},
+    {label:'0–3',sA:0,sB:3,win:false},
   ];
 
-  const results=scenarios.map(({label,sA,sB})=>{
-    const {fA,fB,winA,winB}=getSetFactors(sA,sB);
-    const deltaA=calcDelta(myPts,oppPts,ew,fA,winA);
-    const deltaB=calcDelta(oppPts,myPts,ew,fB,winB);
-    const newMy=Math.max(1,Math.round((myPts+deltaA)*10)/10);
-    const newOpp=Math.max(1,Math.round((oppPts+deltaB)*10)/10);
-    const isWin=sA>sB;
-    return {label,deltaA,deltaB,newMy,newOpp,isWin};
+  const probs = calcScenarioProbs(myPts, oppPts);
+
+  const results = scenarios.map(({label,sA,sB,win},i) => {
+    const {fA,fB,winA,winB} = getSetFactors(sA,sB);
+    const deltaA = calcDelta(myPts,oppPts,ew,fA,winA);
+    const deltaB = calcDelta(oppPts,myPts,ew,fB,winB);
+    const newMy  = Math.max(1,Math.round((myPts +deltaA)*10)/10);
+    const newOpp = Math.max(1,Math.round((oppPts+deltaB)*10)/10);
+    const pct    = (probs[i]*100).toFixed(2)+'%';
+    return {label,deltaA,deltaB,newMy,newOpp,win,pct,prob:probs[i]};
   });
 
-  const myRank=RK.findIndex(r=>r.Team===myName)+1;
-  const oppRank=RK.findIndex(r=>r.Team===oppName)+1;
-  const tournLabel=document.getElementById('predTournament').selectedOptions[0].text;
+  const maxProb  = Math.max(...results.map(r=>r.prob));
+  const myRank   = RK.findIndex(r=>r.Team===myName)+1;
+  const oppRank  = RK.findIndex(r=>r.Team===oppName)+1;
+  const tournLabel = document.getElementById('predTournament').selectedOptions[0].text;
+
+  const fmtD = d => (d>=0?'+':'')+d;
+  const dCls = d => d>0?'pos':d<0?'neg':'zero';
 
   document.getElementById('predResults').innerHTML=`
-    <!-- Match info bar -->
-    <div class="card" style="margin-bottom:16px">
-      <div style="padding:16px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;">
-        <div style="display:flex;align-items:center;gap:16px;">
-          <div style="text-align:center">
-            <div style="font-family:var(--f-ui);font-size:16px;font-weight:800;color:var(--lime)">${countryFlag(myName)} ${myName}</div>
-            <div style="font-family:var(--f-hero);font-size:28px;color:var(--lime);line-height:1">${myPts}</div>
-            <div style="font-size:10px;color:var(--ink3);text-transform:uppercase;letter-spacing:.08em">อันดับ ${myRank}</div>
-          </div>
-          <div style="font-family:var(--f-hero);font-size:32px;color:var(--ink3);letter-spacing:.06em">VS</div>
-          <div style="text-align:center">
-            <div style="font-family:var(--f-ui);font-size:16px;font-weight:800;color:var(--silver)">${countryFlag(oppName)} ${oppName}</div>
-            <div style="font-family:var(--f-hero);font-size:28px;color:var(--silver);line-height:1">${oppPts}</div>
-            <div style="font-size:10px;color:var(--ink3);text-transform:uppercase;letter-spacing:.08em">อันดับ ${oppRank}</div>
-          </div>
-        </div>
-        <div style="text-align:right">
-          <div style="font-size:11px;color:var(--ink3);margin-bottom:4px">${tournLabel}</div>
-          <div style="font-family:var(--f-mono);font-size:11px;color:var(--ink3)">Weight: ${tw} × Decay: ${td} = <span style="color:var(--lime)">${Math.round(ew*10)/10}</span></div>
-          <div style="font-size:11px;color:var(--ink3);margin-top:4px">${new Date(dateVal+'T00:00:00').toLocaleDateString('th-TH',{year:'numeric',month:'long',day:'numeric'})}</div>
-        </div>
+
+    <!-- PROBABILITIES -->
+    <div class="prob-block">
+      <div class="prob-title">PROBABILITIES</div>
+      <div class="prob-vs-row">
+        <div class="prob-vs-team left">${countryFlag(myName)} ${myName}</div>
+        <div class="prob-vs-badge">VS</div>
+        <div class="prob-vs-team right">${countryFlag(oppName)} ${oppName}</div>
+      </div>
+      <div class="prob-scores-row">
+        ${results.map(r=>`<div class="prob-score-cell ${r.win?'win':'lose'}">${r.label}</div>`).join('')}
+      </div>
+      <div class="prob-pct-row">
+        ${results.map(r=>{
+          const barH = Math.round((r.prob/maxProb)*48);
+          return `<div class="prob-pct-cell ${r.win?'win':'lose'}">
+            <div class="bar" style="height:${barH}px"></div>
+            <span>${r.pct}</span>
+          </div>`;
+        }).join('')}
       </div>
     </div>
 
-    <!-- Column headers -->
-    <div class="result-header">
-      <div>ผลการแข่งขัน</div>
-      <div>${countryFlag(myName)} ${myName}</div>
-      <div>${countryFlag(oppName)} ${oppName}</div>
+    <!-- MATCH WEIGHT -->
+    <div class="match-weight-block">
+      <div class="mw-badge">MATCH WEIGHT: ${Math.round(ew*10)/10}</div>
+      <div class="mw-tourn">${tournLabel.toUpperCase()} · Decay ${td}×</div>
     </div>
 
-    <!-- Scenario cards -->
-    <div class="scenarios">
-      ${results.map(r=>{
-        const signA = r.deltaA >= 0 ? '+' : '';
-        const signB = r.deltaB >= 0 ? '+' : '';
-        const colorA = r.deltaA >= 0 ? 'var(--lime)' : 'var(--red)';
-        const colorB = r.deltaB >= 0 ? 'var(--lime)' : 'var(--red)';
-        return `
-        <div class="sc-card ${r.isWin?'win':'lose'}">
-          <div class="sc-label">${r.label}</div>
-          <div class="sc-side">
-            <div class="sc-side-label">คะแนนที่เปลี่ยน</div>
-            <div class="sc-side-row">
-              <span class="sc-gain my" style="color:${colorA}">${signA}${r.deltaA}</span>
-              <span style="font-size:10px;color:var(--ink3)">pts</span>
-            </div>
-            <div class="sc-total my" style="color:${colorA}">${r.newMy}</div>
-            <div class="sc-total-lbl">คะแนนรวมใหม่</div>
-          </div>
-          <div class="sc-side">
-            <div class="sc-side-label">คะแนนที่เปลี่ยน</div>
-            <div class="sc-side-row">
-              <span class="sc-gain opp" style="color:${colorB}">${signB}${r.deltaB}</span>
-              <span style="font-size:10px;color:var(--ink3)">pts</span>
-            </div>
-            <div class="sc-total opp" style="color:${colorB};font-size:22px">${r.newOpp}</div>
-            <div class="sc-total-lbl">คะแนนรวมใหม่</div>
-          </div>
-        </div>`}).join('')}
+    <!-- WORLD RANKING POINTS — MY TEAM -->
+    <div class="wrp-block">
+      <div class="wrp-title">WORLD RANKING POINTS</div>
+      <div class="wrp-team-row">
+        <div class="wrp-rank">${myRank}</div>
+        <div class="wrp-team-name">${countryFlag(myName)} ${myName}</div>
+        <div class="wrp-score">${myPts}</div>
+      </div>
+      <div class="wrp-delta-hdr">
+        ${results.map(r=>`<div class="wrp-delta-hdr-cell">${r.label}</div>`).join('')}
+      </div>
+      <div class="wrp-delta-row">
+        ${results.map(r=>`<div class="wrp-delta-cell ${dCls(r.deltaA)}">${fmtD(r.deltaA)}</div>`).join('')}
+      </div>
+    </div>
+
+    <!-- WORLD RANKING POINTS — OPP TEAM -->
+    <div class="wrp-block">
+      <div class="wrp-title">WORLD RANKING POINTS</div>
+      <div class="wrp-team-row">
+        <div class="wrp-rank">${oppRank}</div>
+        <div class="wrp-team-name opp">${countryFlag(oppName)} ${oppName}</div>
+        <div class="wrp-score">${oppPts}</div>
+      </div>
+      <div class="wrp-delta-hdr">
+        ${results.map(r=>`<div class="wrp-delta-hdr-cell">${r.label}</div>`).join('')}
+      </div>
+      <div class="wrp-delta-row">
+        ${results.map(r=>`<div class="wrp-delta-cell ${dCls(r.deltaB)}">${fmtD(r.deltaB)}</div>`).join('')}
+      </div>
+    </div>
+
+    <!-- INFO ROW -->
+    <div style="font-family:var(--f-mono);font-size:10px;color:var(--ink3);text-align:center;padding:4px">
+      ${new Date(dateVal+'T00:00:00').toLocaleDateString('th-TH',{year:'numeric',month:'long',day:'numeric'})}
+      · Effective Weight: ${Math.round(ew*10)/10}
     </div>
   `;
 }
